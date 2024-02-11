@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  ansible-controller:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible-controller
+    restart: unless-stopped
+    networks:
+      - ansible_network
+    volumes:
+      - ./ansible:/ansible
+    ports:
+      - "22:22"  # Expose SSH port for Ansible communication
+
+  ansible1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible1
+    restart: unless-stopped
+    networks:
+      - ansible_network
+
+  ansible2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible2
+    restart: unless-stopped
+    networks:
+      - ansible_network
+
+  ansible3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible3
+    restart: unless-stopped
+    networks:
+      - ansible_network
+
+networks:
+  ansible_network:
+    driver: bridge
